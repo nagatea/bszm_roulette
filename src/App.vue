@@ -28,7 +28,7 @@
       </md-empty-state>
     </div>
     <div v-else>
-      <Bingo :bingoData="importData" :state="state" />
+      <Bingo :bingoData="importData" :dataIndex="dataIndex" :state="state" />
     </div>
   </div>
 </template>
@@ -44,17 +44,27 @@ export default {
   localStorage: {
     importData: {
       type: Array
+    },
+    dataIndex: {
+      type: Number
     }
   },
   data() {
     return {
       importData: [],
+      dataIndex: 0,
       state: 0,
       buttonState: 'stop'
     }
   },
-  mounted () {
+  created () {
     this.importData = this.$localStorage.get('importData')
+    this.dataIndex = this.$localStorage.get('dataIndex')
+    if (location.search) {
+      const query = location.search.substring(1).split('=')[1]
+      this.dataIndex = query - 1
+      this.$localStorage.set('dataIndex', query - 1)
+    }
   },
   methods: {
     dataToCSV (data) {
@@ -75,18 +85,23 @@ export default {
         const res = that.dataToCSV(e.target.result)
         that.importData = res
         that.$localStorage.set('importData', res)
+        that.$localStorage.set('dataIndex', 0)
       }
       reader.readAsText(file)
     },
     deleteData () {
       this.$localStorage.remove('importData')
+      this.$localStorage.remove('dataIndex')
       this.importData = []
+      this.dataIndex = 0
     },
     changeState () {
       this.state = (this.state + 1) % 2
       switch (this.state) {
         case 0:
           this.buttonState = 'stop'
+          this.dataIndex++
+          this.$localStorage.set('dataIndex', this.dataIndex)
           break
         case 1:
           this.buttonState = 'start'
