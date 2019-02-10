@@ -1,5 +1,11 @@
 <template>
-  <p>Already</p>
+  <div>
+    <ul>
+      <li v-for="item in alreadyData" :key="item.id">
+        {{ item.name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>

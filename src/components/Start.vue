@@ -1,5 +1,7 @@
 <template>
-  <p>Start</p>
+  <div class="start-name">
+    ？？？
+  </div>
 </template>
 
 <script>
@@ -12,4 +14,8 @@ export default {
 </script>
 
 <style scoped>
+.start-name {
+  padding: 50px 0 10px 10px;
+  font-size: 30px;
+}
 </style>
