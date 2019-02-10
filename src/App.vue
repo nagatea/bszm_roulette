@@ -2,7 +2,10 @@
   <div id="app">
     <md-toolbar>
       <h3 class="md-title" style="flex: 1">bszm-roulette</h3>
-      <md-button class="md-raised md-primary">button</md-button>
+
+      <md-button v-if="!importData.length" class="md-raised" disabled>Start</md-button>
+      <md-button v-else class="md-raised md-primary" @click="changeState()">{{ buttonState }}</md-button>
+      
       <md-menu md-size="auto">
         <md-button class="md-icon-button">
           <md-icon md-menu-trigger>more_vert</md-icon>
@@ -24,18 +27,19 @@
         <input type="file" accept=".csv" id="import" name="import" ref="importFile" @change="changeData" />
       </md-empty-state>
     </div>
-    <ul id="example-1">
-      <li v-for="item in importData" :key="item.id">
-        {{ item }}
-      </li>
-    </ul>
+    <div v-else>
+      <Bingo :bingoData="importData" :state="state" />
+    </div>
   </div>
 </template>
 
 <script>
+import Bingo from '@/components/Bingo'
+
 export default {
   name: 'app',
   components: {
+    Bingo
   },
   localStorage: {
     importData: {
@@ -44,7 +48,9 @@ export default {
   },
   data() {
     return {
-      importData: []
+      importData: [],
+      state: 0,
+      buttonState: 'stop'
     }
   },
   mounted () {
@@ -75,6 +81,17 @@ export default {
     deleteData () {
       this.$localStorage.remove('importData')
       this.importData = []
+    },
+    changeState () {
+      this.state = (this.state + 1) % 2
+      switch (this.state) {
+        case 0:
+          this.buttonState = 'stop'
+          break
+        case 1:
+          this.buttonState = 'start'
+          break
+      }
     }
   }
 }
