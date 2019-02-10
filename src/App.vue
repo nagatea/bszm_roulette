@@ -8,17 +8,16 @@
           <md-icon md-menu-trigger>more_vert</md-icon>
         </md-button>
         <md-menu-content>
-          <!-- TODO: 実装 -->
-          <md-menu-item>データ消去</md-menu-item>
+          <md-menu-item @click="deleteData()">データ消去</md-menu-item>
         </md-menu-content>
       </md-menu>
     </md-toolbar>
 
     <div v-if="!importData.length">
       <md-empty-state
-        md-icon="devices_other"
-        md-label="Create your first project"
-        md-description="Creating project, you'll be able to upload your design and collaborate with people.">
+        md-icon="library_books"
+        md-label="Import your first project"
+        md-description="Importing project, you'll be able to start bingo and have fun bszm with people that major in Information Science and Technology.">
         <md-button class="md-raised md-primary">
           <label for="import">データのインポート</label>
         </md-button>
@@ -38,10 +37,18 @@ export default {
   name: 'app',
   components: {
   },
+  localStorage: {
+    importData: {
+      type: Array
+    }
+  },
   data() {
     return {
       importData: []
     }
+  },
+  mounted () {
+    this.importData = this.$localStorage.get('importData')
   },
   methods: {
     dataToCSV (data) {
@@ -59,9 +66,15 @@ export default {
       const reader = new window.FileReader()
       const that = this
       reader.onload = function (e) {
-        that.importData = that.dataToCSV(e.target.result)
+        const res = that.dataToCSV(e.target.result)
+        that.importData = res
+        that.$localStorage.set('importData', res)
       }
       reader.readAsText(file)
+    },
+    deleteData () {
+      this.$localStorage.remove('importData')
+      this.importData = []
     }
   }
 }
