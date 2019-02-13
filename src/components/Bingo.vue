@@ -2,7 +2,7 @@
   <div class="md-layout">
     <div class="md-layout-item md-medium-size-75 md-small-size-65 md-xsmall-size-100">
       <div v-if="state === 0">
-        <Start />
+        <Start :startData="bingoData.slice(dataIndex, bingoData.length)"/>
       </div>
       <div v-if="state === 1">
         <Stop :stopData="bingoData[dataIndex]" />
@@ -11,7 +11,6 @@
     <div class="md-layout-item md-medium-size-25 md-small-size-35 md-xsmall-size-100">
       <Already :alreadyData="bingoData.slice(0, dataIndex)" />
     </div>
-    {{ dataIndex }}
   </div>
 </template>
 
