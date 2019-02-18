@@ -20,10 +20,11 @@ export default {
 
 <style scoped>
 .stop-name {
-  padding: 50px 0 10px 10px;
-  font-size: 30px;
+  padding: 80px 0 10px 10px;
+  font-size: 6vw;
 }
 .stop-memo {
-  padding: 0px 10px;
+  padding: 80px 10px;
+  font-size: 2vw;
 }
 </style>

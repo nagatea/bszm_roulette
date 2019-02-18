@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 .start-name {
-  padding: 50px 0 10px 10px;
-  font-size: 30px;
+  padding: 80px 0 10px 10px;
+  font-size: 6vw;
 }
 </style>
