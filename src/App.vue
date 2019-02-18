@@ -85,6 +85,7 @@ export default {
         const res = that.dataToCSV(e.target.result)
         that.importData = res
         that.$localStorage.set('importData', res)
+        that.dataIndex = 0
         that.$localStorage.set('dataIndex', 0)
       }
       reader.readAsText(file)
