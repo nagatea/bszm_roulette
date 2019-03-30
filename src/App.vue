@@ -12,6 +12,7 @@
         </md-button>
         <md-menu-content>
           <md-menu-item @click="deleteData()">データ消去</md-menu-item>
+          <md-menu-item @click="changeSettingShow()">設定</md-menu-item>
         </md-menu-content>
       </md-menu>
     </md-toolbar>
@@ -30,16 +31,19 @@
     <div v-else>
       <Bingo :bingoData="importData" :dataIndex="dataIndex" :state="state" />
     </div>
+    <Setting :showDialog="showDialog" :settingData="settingData" @changeSettingShow="changeSettingShow()"/>
   </div>
 </template>
 
 <script>
 import Bingo from '@/components/Bingo'
+import Setting from '@/components/Setting'
 
 export default {
   name: 'app',
   components: {
-    Bingo
+    Bingo,
+    Setting
   },
   localStorage: {
     importData: {
@@ -54,7 +58,9 @@ export default {
       importData: [],
       dataIndex: 0,
       state: 0,
-      buttonState: 'stop'
+      buttonState: 'stop',
+      showDialog: false,
+      settingData: {}
     }
   },
   created () {
@@ -107,6 +113,9 @@ export default {
           this.buttonState = 'start'
           break
       }
+    },
+    changeSettingShow () {
+      this.showDialog = !this.showDialog
     }
   }
 }
