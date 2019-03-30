@@ -3,8 +3,13 @@
     <div class="stop-name">
       {{ stopData.name }}
     </div>
-    <div class="stop-memo">
-      {{ stopData.memo }}
+    <div class="md-layout md-gutter">
+      <div class="md-layout-item stop-memo">
+        {{ stopData.memo }}
+      </div>
+      <div v-if="stopData.image_path" class="md-layout-item stop-memo">
+        <img :src="stopData.image_path">
+      </div>
     </div>
   </div>
 </template>

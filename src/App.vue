@@ -70,9 +70,8 @@ export default {
     dataToCSV (data) {
       let tmp = data.split("\n").map(item => item.split(","))
       let res = []
-      // TODO: name, memo以外の要素にも対応する
-      for (let i = 1; i < tmp.length; i++) {
-        let object = { name : tmp[i][0], memo : tmp[i][1] }
+      for (let i = 1; i < tmp.length; i++) { // 先頭行は捨てている
+        let object = { name : tmp[i][0], memo : tmp[i][1], image_path : tmp[i][2] }
         res.push(object)
       }
       return res
