@@ -13,7 +13,7 @@
         <md-menu-content>
           <md-menu-item @click="changeSettingShow()">ジャンプ</md-menu-item>
           <md-menu-item @click="changeSettingShow()">設定</md-menu-item>
-          <md-menu-item @click="changeSettingShow()">About</md-menu-item>
+          <md-menu-item @click="changeAboutShow()">About</md-menu-item>
         </md-menu-content>
       </md-menu>
     </md-toolbar>
@@ -37,18 +37,23 @@
       :settingData="settingData"
       @changeSettingShow="changeSettingShow()"
       @deleteData="deleteData()"/>
+    <About
+      :showAboutDialog="showAboutDialog"
+      @changeAboutShow="changeAboutShow()"/>
   </div>
 </template>
 
 <script>
 import Bingo from '@/components/Bingo'
 import Setting from '@/components/Setting'
+import About from '@/components/About'
 
 export default {
   name: 'app',
   components: {
     Bingo,
-    Setting
+    Setting,
+    About
   },
   localStorage: {
     importData: {
@@ -65,6 +70,7 @@ export default {
       state: 0,
       buttonState: 'stop',
       showDialog: false,
+      showAboutDialog: false,
       settingData: {}
     }
   },
@@ -121,6 +127,9 @@ export default {
     },
     changeSettingShow () {
       this.showDialog = !this.showDialog
+    },
+    changeAboutShow () {
+      this.showAboutDialog = !this.showAboutDialog
     }
   }
 }
