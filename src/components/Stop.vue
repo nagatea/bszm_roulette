@@ -31,5 +31,6 @@ export default {
 .stop-memo {
   padding: 80px 10px;
   font-size: 2vw;
+  line-height: 5vh;
 }
 </style>

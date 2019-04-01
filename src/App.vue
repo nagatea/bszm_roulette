@@ -6,13 +6,14 @@
       <md-button v-if="!importData.length" class="md-raised" disabled>Start</md-button>
       <md-button v-else class="md-raised md-primary" @click="changeState()">{{ buttonState }}</md-button>
       
-      <md-menu md-size="auto">
+      <md-menu md-size="auto" md-align-trigger>
         <md-button class="md-icon-button">
           <md-icon md-menu-trigger>more_vert</md-icon>
         </md-button>
         <md-menu-content>
-          <md-menu-item @click="deleteData()">データ消去</md-menu-item>
+          <md-menu-item @click="changeSettingShow()">ジャンプ</md-menu-item>
           <md-menu-item @click="changeSettingShow()">設定</md-menu-item>
+          <md-menu-item @click="changeSettingShow()">About</md-menu-item>
         </md-menu-content>
       </md-menu>
     </md-toolbar>
@@ -31,7 +32,11 @@
     <div v-else>
       <Bingo :bingoData="importData" :dataIndex="dataIndex" :state="state" />
     </div>
-    <Setting :showDialog="showDialog" :settingData="settingData" @changeSettingShow="changeSettingShow()"/>
+    <Setting
+      :showDialog="showDialog"
+      :settingData="settingData"
+      @changeSettingShow="changeSettingShow()"
+      @deleteData="deleteData()"/>
   </div>
 </template>
 
