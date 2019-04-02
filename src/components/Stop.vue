@@ -27,6 +27,7 @@ export default {
 .stop-name {
   padding: 80px 0 10px 10px;
   font-size: 6vw;
+  line-height: 6vh;
 }
 .stop-memo {
   padding: 80px 10px;
