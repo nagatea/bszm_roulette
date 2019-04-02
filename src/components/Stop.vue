@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="stop-name">
+    <div v-if="stopData.name" class="stop-name">
       {{ stopData.name }}
     </div>
     <div class="md-layout md-gutter">
-      <div class="md-layout-item stop-memo">
+      <div v-if="stopData.memo" class="md-layout-item stop-memo">
         {{ stopData.memo }}
       </div>
       <div v-if="stopData.image_path" class="md-layout-item stop-memo">
