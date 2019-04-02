@@ -11,7 +11,8 @@
           <md-icon md-menu-trigger>more_vert</md-icon>
         </md-button>
         <md-menu-content>
-          <md-menu-item @click="changeSettingShow()">ジャンプ</md-menu-item>
+          <md-menu-item v-if="importData.length" @click="changeSettingShow()">一覧表示</md-menu-item>
+          <md-menu-item v-if="importData.length" @click="changeSettingShow()">ジャンプ</md-menu-item>
           <md-menu-item @click="changeSettingShow()">設定</md-menu-item>
           <md-menu-item @click="changeAboutShow()">About</md-menu-item>
         </md-menu-content>
@@ -33,13 +34,10 @@
       <Bingo :bingoData="importData" :dataIndex="dataIndex" :state="state" />
     </div>
     <Setting
-      :showDialog="showDialog"
+      ref = "setting"
       :settingData="settingData"
-      @changeSettingShow="changeSettingShow()"
       @deleteData="deleteData()"/>
-    <About
-      :showAboutDialog="showAboutDialog"
-      @changeAboutShow="changeAboutShow()"/>
+    <About ref = "about"/>
   </div>
 </template>
 
@@ -126,10 +124,10 @@ export default {
       }
     },
     changeSettingShow () {
-      this.showDialog = !this.showDialog
+      this.$refs.setting.changeShow()
     },
     changeAboutShow () {
-      this.showAboutDialog = !this.showAboutDialog
+      this.$refs.about.changeAboutShow()
     }
   }
 }

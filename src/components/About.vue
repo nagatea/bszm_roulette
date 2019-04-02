@@ -7,7 +7,7 @@
           <p>時間に余裕があったら加筆します。</p>
         </md-dialog-content>
       <md-dialog-actions>
-        <md-button class="md-primary" @click="$emit('changeAboutShow')">Close</md-button>
+        <md-button class="md-primary" @click="showAboutDialog = false">Close</md-button>
       </md-dialog-actions>
     </md-dialog>
   </div>
@@ -16,10 +16,14 @@
 <script>
   export default {
     name: 'About',
-    props: {
-      showAboutDialog: {
-        type: Boolean,
-        default: false
+    data() {
+      return {
+        showAboutDialog: false
+      }
+    },
+    methods: {
+      changeAboutShow () {
+        this.showAboutDialog = !this.showAboutDialog
       }
     }
   }
