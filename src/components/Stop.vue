@@ -7,7 +7,7 @@
       <div v-if="stopData.memo" class="md-layout-item stop-memo">
         {{ stopData.memo }}
       </div>
-      <div v-if="stopData.image_path" class="md-layout-item stop-memo">
+      <div v-if="stopData.image_path && stopData.image_path.length > 1" class="md-layout-item stop-memo">
         <img :src="stopData.image_path">
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="item in alreadyData" :key="item.id">
+      <li v-for="item in alreadyData.reverse()" :key="item.id">
         {{ item.name }}
       </li>
     </ul>

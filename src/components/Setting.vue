@@ -18,7 +18,7 @@
 
         <md-tab md-label="データ消去">
           <p>データを初期化して最初から始めます</p>
-          <md-button class="md-raised">データ初期化</md-button>
+          <md-button class="md-raised" @click="init()">データ初期化</md-button>
           <p>現在使用しているデータを消去します</p>
           <md-button class="md-raised md-accent" @click="changeShow(); $emit('deleteData')">データ消去</md-button>
         </md-tab>
@@ -47,6 +47,10 @@
     methods: {
       changeShow () {
         this.showDialog = !this.showDialog
+      },
+      init () {
+        const locationTmp = location.origin
+        location.href = locationTmp + "?n=1"
       }
     }
   }
