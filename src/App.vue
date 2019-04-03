@@ -11,10 +11,10 @@
           <md-icon md-menu-trigger>more_vert</md-icon>
         </md-button>
         <md-menu-content>
-          <md-menu-item v-if="importData.length" @click="changeAlreadyListShow()">既出一覧表示</md-menu-item>
-          <md-menu-item v-if="importData.length" @click="changeJumpShow()">ジャンプ</md-menu-item>
-          <md-menu-item @click="changeSettingShow()">設定</md-menu-item>
-          <md-menu-item @click="changeAboutShow()">About</md-menu-item>
+          <md-menu-item v-if="importData.length" @click="$refs.alreadyList.changeShow()">既出一覧表示</md-menu-item>
+          <md-menu-item v-if="importData.length" @click="$refs.jump.changeShow()">ジャンプ</md-menu-item>
+          <md-menu-item @click="$refs.setting.changeShow()">設定</md-menu-item>
+          <md-menu-item @click="$refs.about.changeShow()">About</md-menu-item>
         </md-menu-content>
       </md-menu>
     </md-toolbar>
@@ -31,23 +31,26 @@
       </md-empty-state>
     </div>
     <div v-else>
-      <Bingo :bingoData="importData" :dataIndex="dataIndex" :state="state" />
+      <Bingo
+        :bingoData="importData"
+        :dataIndex="dataIndex"
+        :state="state" />
       <AlreadyList
         ref="alreadyList"
         :bingoData="importData"
         :dataIndex="dataIndex"
-        :state="state"/>
+        :state="state" />
       <Jump
         ref="jump"
         :bingoData="importData"
-        @changeDataIndex="changeState(0); changeDataIndex($event)"/>
+        @changeDataIndex="changeState(0); changeDataIndex($event)" />
     </div>
     <Setting
       ref="setting"
       :settingData="settingData"
       @initializeData="initializeData()"
-      @deleteData="deleteData()"/>
-    <About ref="about"/>
+      @deleteData="deleteData()" />
+    <About ref="about" />
   </div>
 </template>
 
@@ -147,18 +150,6 @@ export default {
     changeDataIndex (indexNumber) {
       this.dataIndex = indexNumber
       this.$localStorage.set('dataIndex', indexNumber)
-    },
-    changeSettingShow () {
-      this.$refs.setting.changeShow()
-    },
-    changeAboutShow () {
-      this.$refs.about.changeAboutShow()
-    },
-    changeAlreadyListShow () {
-      this.$refs.alreadyList.changeShow()
-    },
-    changeJumpShow () {
-      this.$refs.jump.changeShow()
     }
   }
 }
