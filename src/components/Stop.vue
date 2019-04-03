@@ -5,10 +5,11 @@
     </div>
     <div class="md-layout md-gutter">
       <div v-if="stopData.memo" class="md-layout-item stop-memo">
+        <img
+          v-if="stopData.image_path && stopData.image_path.length > 1"
+          :src="stopData.image_path"
+          class="stop-image">
         {{ stopData.memo }}
-      </div>
-      <div v-if="stopData.image_path && stopData.image_path.length > 1" class="md-layout-item stop-memo">
-        <img :src="stopData.image_path">
       </div>
     </div>
   </div>
@@ -30,8 +31,13 @@ export default {
   line-height: 6vh;
 }
 .stop-memo {
+  margin: 0 0 0 10px;
   padding: 80px 10px;
   font-size: 2vw;
   line-height: 5vh;
+}
+.stop-image {
+  max-width: 40vw;
+  float: right;
 }
 </style>
