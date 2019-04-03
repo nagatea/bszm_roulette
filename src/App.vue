@@ -11,7 +11,7 @@
           <md-icon md-menu-trigger>more_vert</md-icon>
         </md-button>
         <md-menu-content>
-          <md-menu-item v-if="importData.length" @click="changeSettingShow()">一覧表示</md-menu-item>
+          <md-menu-item v-if="importData.length" @click="changeAlreadyListShow()">既出一覧表示</md-menu-item>
           <md-menu-item v-if="importData.length" @click="changeSettingShow()">ジャンプ</md-menu-item>
           <md-menu-item @click="changeSettingShow()">設定</md-menu-item>
           <md-menu-item @click="changeAboutShow()">About</md-menu-item>
@@ -32,12 +32,17 @@
     </div>
     <div v-else>
       <Bingo :bingoData="importData" :dataIndex="dataIndex" :state="state" />
+      <AlreadyList
+        ref="alreadyList"
+        :bingoData="importData"
+        :dataIndex="dataIndex"
+        :state="state"/>
     </div>
     <Setting
-      ref = "setting"
+      ref="setting"
       :settingData="settingData"
       @deleteData="deleteData()"/>
-    <About ref = "about"/>
+    <About ref="about"/>
   </div>
 </template>
 
@@ -45,13 +50,15 @@
 import Bingo from '@/components/Bingo'
 import Setting from '@/components/Setting'
 import About from '@/components/About'
+import AlreadyList from '@/components/AlreadyList'
 
 export default {
   name: 'app',
   components: {
     Bingo,
     Setting,
-    About
+    About,
+    AlreadyList
   },
   localStorage: {
     importData: {
@@ -128,6 +135,9 @@ export default {
     },
     changeAboutShow () {
       this.$refs.about.changeAboutShow()
+    },
+    changeAlreadyListShow () {
+      this.$refs.alreadyList.changeShow()
     }
   }
 }
