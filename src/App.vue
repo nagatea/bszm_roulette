@@ -12,7 +12,7 @@
         </md-button>
         <md-menu-content>
           <md-menu-item v-if="importData.length" @click="changeAlreadyListShow()">既出一覧表示</md-menu-item>
-          <md-menu-item v-if="importData.length" @click="changeSettingShow()">ジャンプ</md-menu-item>
+          <md-menu-item v-if="importData.length" @click="changeJumpShow()">ジャンプ</md-menu-item>
           <md-menu-item @click="changeSettingShow()">設定</md-menu-item>
           <md-menu-item @click="changeAboutShow()">About</md-menu-item>
         </md-menu-content>
@@ -37,10 +37,15 @@
         :bingoData="importData"
         :dataIndex="dataIndex"
         :state="state"/>
+      <Jump
+        ref="jump"
+        :bingoData="importData"
+        @changeDataIndex="changeState(0); changeDataIndex($event)"/>
     </div>
     <Setting
       ref="setting"
       :settingData="settingData"
+      @initializeData="initializeData()"
       @deleteData="deleteData()"/>
     <About ref="about"/>
   </div>
@@ -51,6 +56,7 @@ import Bingo from '@/components/Bingo'
 import Setting from '@/components/Setting'
 import About from '@/components/About'
 import AlreadyList from '@/components/AlreadyList'
+import Jump from '@/components/Jump'
 
 export default {
   name: 'app',
@@ -58,7 +64,8 @@ export default {
     Bingo,
     Setting,
     About,
-    AlreadyList
+    AlreadyList,
+    Jump
   },
   localStorage: {
     importData: {
@@ -117,18 +124,29 @@ export default {
       this.importData = []
       this.dataIndex = 0
     },
-    changeState () {
-      this.state = (this.state + 1) % 2
+    initializeData () {
+      this.changeState(0)
+      this.changeDataIndex(0)
+    },
+    changeState (state) {
+      if (state === undefined) {
+        this.state = (this.state + 1) % 2
+      } else {
+        this.state = state
+      }
       switch (this.state) {
         case 0:
           this.buttonState = 'stop'
-          this.dataIndex++
-          this.$localStorage.set('dataIndex', this.dataIndex)
+          this.changeDataIndex(this.dataIndex + 1)
           break
         case 1:
           this.buttonState = 'start'
           break
       }
+    },
+    changeDataIndex (indexNumber) {
+      this.dataIndex = indexNumber
+      this.$localStorage.set('dataIndex', indexNumber)
     },
     changeSettingShow () {
       this.$refs.setting.changeShow()
@@ -138,6 +156,9 @@ export default {
     },
     changeAlreadyListShow () {
       this.$refs.alreadyList.changeShow()
+    },
+    changeJumpShow () {
+      this.$refs.jump.changeShow()
     }
   }
 }
