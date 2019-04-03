@@ -31,13 +31,14 @@ export default {
   line-height: 6vh;
 }
 .stop-memo {
-  margin: 0 0 0 10px;
+  margin-left: 10px;
   padding: 80px 10px;
   font-size: 2vw;
   line-height: 5vh;
 }
 .stop-image {
-  max-width: 40vw;
+  padding-left: 10px;
+  max-width: 35vw;
   float: right;
 }
 </style>
