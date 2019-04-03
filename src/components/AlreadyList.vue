@@ -49,6 +49,7 @@
 <style scoped>
   ul li {
     float: left;
-    width: 33%;
+    margin: 0 5px;
+    width: 30%;
   }
 </style>
