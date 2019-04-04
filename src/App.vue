@@ -2,6 +2,7 @@
   <div id="app">
     <md-toolbar>
       <h3 class="md-title" style="flex: 1">bszm-roulette</h3>
+      <h3 v-if="settingData.thema" class="thema">テーマ「{{ settingData.thema }}」</h3>
 
       <md-button v-if="!importData.length" class="md-raised" disabled>Start</md-button>
       <md-button v-else class="md-raised md-primary" @click="changeState()">{{ buttonState }}</md-button>
@@ -47,7 +48,7 @@
     </div>
     <Setting
       ref="setting"
-      :settingData="settingData"
+      @changeSettingData="changeSettingData($event)"
       @initializeData="initializeData()"
       @deleteData="deleteData()" />
     <About ref="about" />
@@ -76,6 +77,9 @@ export default {
     },
     dataIndex: {
       type: Number
+    },
+    settingData: {
+      type: Object
     }
   },
   data() {
@@ -84,19 +88,13 @@ export default {
       dataIndex: 0,
       state: 0,
       buttonState: 'stop',
-      showDialog: false,
-      showAboutDialog: false,
       settingData: {}
     }
   },
   created () {
     this.importData = this.$localStorage.get('importData')
     this.dataIndex = this.$localStorage.get('dataIndex')
-    if (location.search) {
-      const query = location.search.substring(1).split('=')[1]
-      this.dataIndex = query - 1
-      this.$localStorage.set('dataIndex', query - 1)
-    }
+    this.settingData = this.$localStorage.get('settingData')
   },
   methods: {
     dataToCSV (data) {
@@ -124,6 +122,7 @@ export default {
     deleteData () {
       this.$localStorage.remove('importData')
       this.$localStorage.remove('dataIndex')
+      this.$localStorage.remove('settingData')
       this.importData = []
       this.dataIndex = 0
     },
@@ -150,6 +149,10 @@ export default {
     changeDataIndex (indexNumber) {
       this.dataIndex = indexNumber
       this.$localStorage.set('dataIndex', indexNumber)
+    },
+    changeSettingData (settingData) {
+      this.settingData = settingData
+      this.$localStorage.set('settingData', settingData)
     }
   }
 }
@@ -161,8 +164,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 input {
   opacity: 0;
+}
+.thema {
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  text-align: center;
 }
 </style>

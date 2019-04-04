@@ -3,10 +3,12 @@
     <md-dialog :md-active.sync="showDialog">
       <md-dialog-title>指定した番号にジャンプ</md-dialog-title>
         <md-dialog-content>
-          <md-field>
-            <label>Number</label>
-            <md-input v-model="value" type="number"></md-input>
-          </md-field>
+          <div class="jump-field">
+            <md-field>
+              <label>Number</label>
+              <md-input v-model="value" type="number"></md-input>
+            </md-field>
+          </div>
           <div v-if="alert" class="jump-alert">
             {{ alert }}
           </div>
@@ -52,5 +54,8 @@
 <style scoped>
 .jump-alert {
   color: red;
+}
+.jump-field {
+  width: 70%;
 }
 </style>

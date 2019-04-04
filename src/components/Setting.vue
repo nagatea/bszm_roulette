@@ -5,16 +5,36 @@
 
       <md-tabs md-dynamic-height>
         <md-tab md-label="サイズ設定">
-          <p>工事中</p>
-          <p>name size</p>
-          <p>name-hight</p>
-          <p>memo-size</p>
-          <p>memo-hight</p>
+          <div class="setting-field">
+            <md-field>
+              <label>Name Size</label>
+              <md-input v-model="settingData.nameSize" type="number"></md-input>
+            </md-field>
+            <md-field>
+              <label>Name Height</label>
+              <md-input v-model="settingData.nameHeight" type="number"></md-input>
+            </md-field>
+            <md-field>
+              <label>Memo Size</label>
+              <md-input v-model="settingData.memoSize" type="number"></md-input>
+            </md-field>
+            <md-field>
+              <label>Memo Height</label>
+              <md-input v-model="settingData.memoHeight" type="number"></md-input>
+            </md-field>
+            <md-field>
+              <label>Image Width</label>
+              <md-input v-model="settingData.imageWidth" type="number"></md-input>
+            </md-field>
+          </div>
         </md-tab>
 
-        <md-tab md-label="アスペクト比設定">
-          <p>工事中</p>
-        </md-tab>
+        <md-tab md-label="テーマ設定">
+          <md-field>
+            <label>テーマ</label>
+            <md-textarea v-model="settingData.thema" md-autogrow></md-textarea>
+          </md-field>
+      </md-tab>
 
         <md-tab md-label="データ消去">
           <p>データを初期化して最初から始めます</p>
@@ -26,7 +46,7 @@
 
       <md-dialog-actions>
         <md-button class="md-primary" @click="changeShow()">Close</md-button>
-        <md-button class="md-primary" @click="changeShow()">Save</md-button>
+        <md-button class="md-raised md-primary" @click="seveSetting()">Save</md-button>
       </md-dialog-actions>
     </md-dialog>
 
@@ -36,22 +56,49 @@
 <script>
   export default {
     name: 'setting',
-    props: {
-      settingData: Object
-    },
     data() {
       return {
-        showDialog: false
+        showDialog: false,
+        settingData: {
+          nameSize: 6,
+          nameHeight: 7,
+          memoSize: 2,
+          memoHeight: 5,
+          imageWidth: 30,
+          thema: undefined
+        }
+      }
+    },
+    created () {
+      const data = this.$localStorage.get('settingData')
+      if (data.nameSize) {
+        this.settingData = data
+      } else {
+        this.$localStorage.set('settingData', this.settingData)
       }
     },
     methods: {
       changeShow () {
         this.showDialog = !this.showDialog
+      },
+      seveSetting () {
+        this.changeShow()
+        this.checkSettingData()
+        this.$emit('changeSettingData', this.settingData)
+      },
+      checkSettingData () {
+        this.settingData.nameSize = Number(this.settingData.nameSize)
+        this.settingData.nameHeight = Number(this.settingData.nameHeight)
+        this.settingData.memoSize = Number(this.settingData.memoSize)
+        this.settingData.memoHeight = Number(this.settingData.memoHeight)
+        this.settingData.imageWidth = Number(this.settingData.imageWidth)
       }
     }
   }
 </script>
 
 <style scoped>
-
+.setting-field {
+  width: 30%;
+}
 </style>

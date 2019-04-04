@@ -38,7 +38,7 @@ export default {
 }
 .stop-image {
   padding-left: 10px;
-  max-width: 35vw;
+  max-width: 30vw;
   float: right;
 }
 </style>
