@@ -125,6 +125,7 @@ export default {
       this.$localStorage.remove('settingData')
       this.importData = []
       this.dataIndex = 0
+      this.settingData.thema = undefined
     },
     initializeData () {
       this.changeState(0)
