@@ -35,6 +35,7 @@
       <Bingo
         :bingoData="importData"
         :dataIndex="dataIndex"
+        :settingData="settingData"
         :state="state" />
       <AlreadyList
         ref="alreadyList"

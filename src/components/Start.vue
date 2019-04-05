@@ -1,5 +1,5 @@
 <template>
-  <div class="start-name">
+  <div class="start-name" :style="`font-size: ${settingData.nameSize}vw; line-height: ${settingData.nameHeight}vh;`">
     {{ shuffleData.name }}
   </div>
 </template>
@@ -8,7 +8,8 @@
 export default {
   name: 'Start',
   props: {
-    startData: Array
+    startData: Array,
+    settingData: Object
   },
   data() {
     return {
@@ -36,7 +37,5 @@ export default {
 <style scoped>
 .start-name {
   padding: 80px 0 10px 10px;
-  font-size: 6vw;
-  line-height: 7vh;
 }
 </style>

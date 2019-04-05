@@ -2,14 +2,18 @@
   <div class="md-layout">
     <div class="md-layout-item md-large-size-75 md-medium-size-75 md-small-size-65 md-xsmall-size-100">
       <div v-if="state === 0">
-        <Start :startData="bingoData.slice(dataIndex, bingoData.length)"/>
+        <Start
+          :startData="bingoData.slice(dataIndex, bingoData.length)"
+          :settingData="settingData"/>
       </div>
       <div v-if="state === 1">
-        <Stop :stopData="bingoData[dataIndex]" />
+        <Stop
+          :stopData="bingoData[dataIndex]" 
+          :settingFata="settingData"/>
       </div>
     </div>
     <div class="md-layout-item md-large-size-25 md-medium-size-25 md-small-size-35 md-xsmall-size-100">
-      <Already :alreadyData="bingoData.slice(0, dataIndex)" />
+      <Already :alreadyData="bingoData.slice(0, dataIndex)"/>
     </div>
   </div>
 </template>
@@ -24,6 +28,7 @@ export default {
   props: {
     bingoData: Array,
     dataIndex: Number,
+    settingData: Object,
     state: Number
   },
   components: {
