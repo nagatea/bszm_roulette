@@ -4,6 +4,13 @@
       <md-dialog-title>Settings</md-dialog-title>
 
       <md-tabs md-dynamic-height>
+        <md-tab md-label="テーマ設定">
+          <md-field>
+            <label>テーマ</label>
+            <md-textarea v-model="settingData.thema" md-autogrow></md-textarea>
+          </md-field>
+        </md-tab>
+
         <md-tab md-label="サイズ設定">
           <div class="setting-field">
             <md-field>
@@ -29,13 +36,6 @@
           </div>
         </md-tab>
 
-        <md-tab md-label="テーマ設定">
-          <md-field>
-            <label>テーマ</label>
-            <md-textarea v-model="settingData.thema" md-autogrow></md-textarea>
-          </md-field>
-      </md-tab>
-
         <md-tab md-label="データ消去">
           <p>データを初期化して最初から始めます</p>
           <md-button class="md-raised" @click="changeShow(); $emit('initializeData')">データ初期化</md-button>
@@ -59,23 +59,11 @@
     data() {
       return {
         showDialog: false,
-        settingData: {
-          nameSize: 6,
-          nameHeight: 7,
-          memoSize: 2,
-          memoHeight: 5,
-          imageWidth: 30,
-          thema: undefined
-        }
+        settingData: {}
       }
     },
-    created () {
-      const data = this.$localStorage.get('settingData')
-      if (data.nameSize) {
-        this.settingData = data
-      } else {
-        this.$localStorage.set('settingData', this.settingData)
-      }
+    created() {
+      this.settingData = this.$localStorage.get('settingData')
     },
     methods: {
       changeShow () {

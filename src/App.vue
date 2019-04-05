@@ -88,13 +88,25 @@ export default {
       dataIndex: 0,
       state: 0,
       buttonState: 'stop',
-      settingData: {}
+      settingData: {
+        nameSize: 6,
+        nameHeight: 7,
+        memoSize: 2,
+        memoHeight: 5,
+        imageWidth: 30,
+        thema: undefined
+      }
     }
   },
   created () {
     this.importData = this.$localStorage.get('importData')
     this.dataIndex = this.$localStorage.get('dataIndex')
-    this.settingData = this.$localStorage.get('settingData')
+    const data = this.$localStorage.get('settingData')
+      if (data.nameSize) {
+        this.settingData = data
+      } else {
+        this.$localStorage.set('settingData', this.settingData)
+      }
   },
   methods: {
     dataToCSV (data) {
@@ -125,7 +137,14 @@ export default {
       this.$localStorage.remove('settingData')
       this.importData = []
       this.dataIndex = 0
-      this.settingData.thema = undefined
+      this.settingData = {
+        nameSize: 6,
+        nameHeight: 7,
+        memoSize: 2,
+        memoHeight: 5,
+        imageWidth: 30,
+        thema: undefined
+      }
     },
     initializeData () {
       this.changeState(0)
