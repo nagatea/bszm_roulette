@@ -8,7 +8,7 @@
         <img
           v-if="stopData.image_path && stopData.image_path.length > 1"
           :src="stopData.image_path"
-          :style="`max-width: ${settingData.imageSize}`"
+          :style="`max-width: ${settingData.imageWidth}vw;`"
           class="stop-image">
         {{ stopData.memo }}
       </div>

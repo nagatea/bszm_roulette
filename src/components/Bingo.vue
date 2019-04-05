@@ -9,7 +9,7 @@
       <div v-if="state === 1">
         <Stop
           :stopData="bingoData[dataIndex]" 
-          :settingFata="settingData"/>
+          :settingData="settingData"/>
       </div>
     </div>
     <div class="md-layout-item md-large-size-25 md-medium-size-25 md-small-size-35 md-xsmall-size-100">
